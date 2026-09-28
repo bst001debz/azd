@@ -39,7 +39,7 @@ button {
   background-color: #010103;
   perspective: 900px;
   opacity: 0;
-  animation: landing-reveal 1s cubic-bezier(0.22, 1, 0.36, 1) 2.1s forwards;
+  animation: landing-reveal 1s cubic-bezier(0.22, 1, 0.36, 1) 3.5s forwards;
 }
 
 .landing-page::before {
@@ -420,21 +420,192 @@ button {
   position: fixed;
   z-index: 10;
   inset: 0;
-  display: grid;
-  place-items: center;
   overflow: hidden;
-  color: #ffffff;
   background: #000000;
-  animation: intro-exit 800ms cubic-bezier(0.4, 0, 0.6, 1) 1.85s forwards;
+  perspective: 400px;
+  animation: intro-exit 600ms ease-in 3.6s forwards;
 }
 
-.intro-screen__logo {
-  max-width: min(320px, 60vw);
-  max-height: min(200px, 40vh);
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  animation: logo-reveal 2.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+.intro-screen__space {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  animation: space-dive 3.4s cubic-bezier(0.12, 0, 0.28, 1) forwards;
+}
+
+.intro-screen__stars {
+  position: absolute;
+  inset: -50%;
+  background-repeat: repeat;
+  background-position: center;
+}
+
+.intro-screen__stars--far {
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, #fff, transparent),
+    radial-gradient(1px 1px at 40% 70%, #fff, transparent),
+    radial-gradient(1px 1px at 60% 20%, #fff, transparent),
+    radial-gradient(1px 1px at 80% 80%, #fff, transparent),
+    radial-gradient(1px 1px at 10% 50%, #fff, transparent),
+    radial-gradient(1px 1px at 90% 40%, #fff, transparent),
+    radial-gradient(1px 1px at 50% 90%, #fff, transparent),
+    radial-gradient(1px 1px at 30% 10%, #fff, transparent),
+    radial-gradient(1px 1px at 70% 60%, #fff, transparent),
+    radial-gradient(1px 1px at 15% 85%, #fff, transparent),
+    radial-gradient(1px 1px at 85% 15%, #fff, transparent),
+    radial-gradient(1px 1px at 45% 45%, #fff, transparent);
+  background-size: 200px 200px;
+  opacity: 0.4;
+  animation: star-drift-far 3.4s ease-in forwards;
+}
+
+.intro-screen__stars--mid {
+  background-image:
+    radial-gradient(1.5px 1.5px at 25% 35%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 55% 75%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 75% 25%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 35% 65%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 65% 55%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 5% 15%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 95% 85%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 50% 40%, #fff, transparent);
+  background-size: 300px 300px;
+  opacity: 0.5;
+  animation: star-drift-mid 3.4s ease-in forwards;
+}
+
+.intro-screen__stars--near {
+  background-image:
+    radial-gradient(2px 2px at 30% 40%, #fff, transparent),
+    radial-gradient(2px 2px at 70% 60%, #fff, transparent),
+    radial-gradient(2px 2px at 50% 20%, #fff, transparent),
+    radial-gradient(2px 2px at 20% 80%, #fff, transparent),
+    radial-gradient(2px 2px at 80% 30%, #fff, transparent),
+    radial-gradient(2px 2px at 40% 50%, #fff, transparent),
+    radial-gradient(2px 2px at 60% 70%, #fff, transparent),
+    radial-gradient(2px 2px at 10% 90%, #fff, transparent);
+  background-size: 400px 400px;
+  opacity: 0.6;
+  animation: star-drift-near 3.4s ease-in forwards;
+}
+
+.intro-screen__dwarf {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow:
+    0 0 6px 2px rgba(255, 255, 255, 0.8),
+    0 0 12px 4px rgba(200, 240, 255, 0.4);
+  transform: translate(-50%, -50%);
+  animation: dwarf-approach 3.4s cubic-bezier(0.08, 0, 0.24, 1) forwards;
+}
+
+.intro-screen__flash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, #fff 0%, #fff 30%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  animation: intro-flash 800ms ease-out 2.8s forwards;
+}
+
+@keyframes space-dive {
+  0% {
+    transform: translateZ(0) scale(1);
+  }
+  100% {
+    transform: translateZ(300px) scale(1.5);
+  }
+}
+
+@keyframes star-drift-far {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(6);
+    opacity: 0;
+  }
+}
+
+@keyframes star-drift-mid {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(8);
+    opacity: 0;
+  }
+}
+
+@keyframes star-drift-near {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(10);
+    opacity: 0;
+  }
+}
+
+@keyframes dwarf-approach {
+  0% {
+    width: 4px;
+    height: 4px;
+    box-shadow:
+      0 0 6px 2px rgba(255, 255, 255, 0.8),
+      0 0 12px 4px rgba(200, 240, 255, 0.4);
+  }
+  60% {
+    width: 20px;
+    height: 20px;
+    box-shadow:
+      0 0 20px 8px rgba(255, 255, 255, 0.9),
+      0 0 40px 16px rgba(200, 240, 255, 0.5);
+  }
+  85% {
+    width: 120px;
+    height: 120px;
+    box-shadow:
+      0 0 60px 30px rgba(255, 255, 255, 1),
+      0 0 120px 60px rgba(200, 240, 255, 0.6);
+  }
+  100% {
+    width: 400px;
+    height: 400px;
+    box-shadow:
+      0 0 200px 100px rgba(255, 255, 255, 1),
+      0 0 400px 200px rgba(255, 255, 255, 0.8);
+  }
+}
+
+@keyframes intro-flash {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes intro-exit {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 .info-panel {
@@ -447,7 +618,7 @@ button {
   color: rgb(238 243 255 / 92%);
   text-align: right;
   pointer-events: none;
-  animation: stats-panel-reveal 700ms cubic-bezier(0.22, 1, 0.36, 1) 3s both;
+  animation: stats-panel-reveal 700ms cubic-bezier(0.22, 1, 0.36, 1) 4.2s both;
 }
 
 .info-panel__text {
@@ -510,7 +681,7 @@ button {
   -webkit-backdrop-filter: blur(14px);
   padding: 4px 0;
   pointer-events: none;
-  animation: stats-panel-reveal 700ms cubic-bezier(0.22, 1, 0.36, 1) 3s both;
+  animation: stats-panel-reveal 700ms cubic-bezier(0.22, 1, 0.36, 1) 4.2s both;
 }
 
 .stats-panel__row {
@@ -632,27 +803,6 @@ button {
 
   to {
     opacity: 1;
-  }
-}
-
-@keyframes logo-reveal {
-  0% {
-    opacity: 0;
-    filter: blur(8px);
-    transform: scale(0.94);
-  }
-
-  28%,
-  70% {
-    opacity: 1;
-    filter: blur(0);
-    transform: scale(1);
-  }
-
-  100% {
-    opacity: 0;
-    filter: blur(4px);
-    transform: scale(1.03);
   }
 }
 
@@ -874,7 +1024,13 @@ button {
   }
 
   .intro-screen,
-  .intro-screen__logo,
+  .intro-screen__space,
+  .intro-screen__stars,
+  .intro-screen__stars--far,
+  .intro-screen__stars--mid,
+  .intro-screen__stars--near,
+  .intro-screen__dwarf,
+  .intro-screen__flash,
   .shooting-star,
   .shooting-star__wake,
   .shooting-star__trail,

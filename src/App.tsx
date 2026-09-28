@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import cosmicAvatar from "./imports/cosmic-avatar.png";
-import introLogo from "./imports/intro-logo.png";
 
 type Trade = {
   id: number;
@@ -137,7 +136,7 @@ export default function App() {
   const nextTradeId = useRef(INITIAL_TRADES.length);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setShowIntro(false), 2600);
+    const timer = window.setTimeout(() => setShowIntro(false), 4200);
     return () => window.clearTimeout(timer);
   }, []);
 
@@ -258,7 +257,13 @@ export default function App() {
 
       {showIntro && (
         <div className="intro-screen" role="status" aria-label="Loading">
-          <img src={introLogo} className="intro-screen__logo" alt="Logo" />
+          <div className="intro-screen__space">
+            <div className="intro-screen__stars intro-screen__stars--far" />
+            <div className="intro-screen__stars intro-screen__stars--mid" />
+            <div className="intro-screen__stars intro-screen__stars--near" />
+          </div>
+          <div className="intro-screen__dwarf" />
+          <div className="intro-screen__flash" />
         </div>
       )}
     </>
