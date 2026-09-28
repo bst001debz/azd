@@ -42,6 +42,28 @@ type ShootingStar = {
   label: "buy" | "sell";
 };
 
+type WarpStar = {
+  id: number;
+  angle: number;
+  distance: number;
+  delay: number;
+  duration: number;
+  length: number;
+  thickness: number;
+};
+
+function generateWarpStars(count: number): WarpStar[] {
+  return Array.from({ length: count }, (_, i) => ({
+    id: i,
+    angle: Math.random() * 360,
+    distance: 300 + Math.random() * 500,
+    delay: 1700 + Math.random() * 1700,
+    duration: 500 + Math.random() * 600,
+    length: 60 + Math.random() * 220,
+    thickness: 1 + Math.random() * 2,
+  }));
+}
+
 function createShootingStar(id: number, side: Trade["side"]): ShootingStar {
   const viewportWidth = window.innerWidth;
   const viewportHeight = window.innerHeight;
@@ -132,11 +154,12 @@ export default function App() {
   const [shootingStars, setShootingStars] = useState<ShootingStar[]>([]);
   const [trades, setTrades] = useState<Trade[]>(INITIAL_TRADES);
   const [activeTrade, setActiveTrade] = useState<Trade | null>(null);
+  const [warpStars] = useState(() => generateWarpStars(120));
   const nextStarId = useRef(0);
   const nextTradeId = useRef(INITIAL_TRADES.length);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setShowIntro(false), 4200);
+    const timer = window.setTimeout(() => setShowIntro(false), 4800);
     return () => window.clearTimeout(timer);
   }, []);
 
@@ -257,13 +280,34 @@ export default function App() {
 
       {showIntro && (
         <div className="intro-screen" role="status" aria-label="Loading">
-          <div className="intro-screen__space">
-            <div className="intro-screen__stars intro-screen__stars--far" />
-            <div className="intro-screen__stars intro-screen__stars--mid" />
-            <div className="intro-screen__stars intro-screen__stars--near" />
+          <div className="intro-screen__nebula" />
+          <div className="intro-screen__sky">
+            <div className="intro-screen__stars intro-screen__stars--layer1" />
+            <div className="intro-screen__stars intro-screen__stars--layer2" />
+            <div className="intro-screen__stars intro-screen__stars--layer3" />
+            <div className="intro-screen__stars intro-screen__stars--layer4" />
+          </div>
+          <div className="intro-screen__warp">
+            {warpStars.map((star) => (
+              <span
+                className="warp-star"
+                key={star.id}
+                style={
+                  {
+                    "--warp-angle": `${star.angle}deg`,
+                    "--warp-distance": `${star.distance}px`,
+                    "--warp-delay": `${star.delay}ms`,
+                    "--warp-duration": `${star.duration}ms`,
+                    "--warp-length": `${star.length}px`,
+                    "--warp-thickness": `${star.thickness}px`,
+                  } as CSSProperties
+                }
+              />
+            ))}
           </div>
           <div className="intro-screen__dwarf" />
           <div className="intro-screen__flash" />
+          <div className="intro-screen__vignette" />
         </div>
       )}
     </>

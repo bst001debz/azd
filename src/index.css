@@ -39,7 +39,7 @@ button {
   background-color: #010103;
   perspective: 900px;
   opacity: 0;
-  animation: landing-reveal 1s cubic-bezier(0.22, 1, 0.36, 1) 3.5s forwards;
+  animation: landing-reveal 1s cubic-bezier(0.22, 1, 0.36, 1) 4s forwards;
 }
 
 .landing-page::before {
@@ -422,15 +422,29 @@ button {
   inset: 0;
   overflow: hidden;
   background: #000000;
-  perspective: 400px;
-  animation: intro-exit 600ms ease-in 3.6s forwards;
+  perspective: 600px;
+  animation: intro-exit 600ms ease-in 4.2s forwards;
 }
 
-.intro-screen__space {
+.intro-screen__nebula {
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(ellipse 40% 30% at 25% 40%, rgba(30, 60, 120, 0.15), transparent 70%),
+    radial-gradient(ellipse 35% 25% at 75% 60%, rgba(80, 40, 100, 0.08), transparent 70%),
+    radial-gradient(ellipse 30% 20% at 50% 30%, rgba(20, 80, 100, 0.06), transparent 70%);
+  opacity: 0;
+  animation: nebula-appear 2s ease-out forwards,
+    nebula-drift 20s ease-in-out 2s infinite alternate;
+  will-change: opacity, transform;
+}
+
+.intro-screen__sky {
   position: absolute;
   inset: 0;
   transform-style: preserve-3d;
-  animation: space-dive 3.4s cubic-bezier(0.12, 0, 0.28, 1) forwards;
+  animation: sky-warp 2.5s cubic-bezier(0.3, 0, 0.7, 1) 1.5s forwards;
+  will-change: transform, filter, opacity;
 }
 
 .intro-screen__stars {
@@ -440,149 +454,319 @@ button {
   background-position: center;
 }
 
-.intro-screen__stars--far {
+.intro-screen__stars--layer1 {
   background-image:
-    radial-gradient(1px 1px at 20% 30%, #fff, transparent),
-    radial-gradient(1px 1px at 40% 70%, #fff, transparent),
-    radial-gradient(1px 1px at 60% 20%, #fff, transparent),
-    radial-gradient(1px 1px at 80% 80%, #fff, transparent),
-    radial-gradient(1px 1px at 10% 50%, #fff, transparent),
-    radial-gradient(1px 1px at 90% 40%, #fff, transparent),
-    radial-gradient(1px 1px at 50% 90%, #fff, transparent),
-    radial-gradient(1px 1px at 30% 10%, #fff, transparent),
-    radial-gradient(1px 1px at 70% 60%, #fff, transparent),
-    radial-gradient(1px 1px at 15% 85%, #fff, transparent),
-    radial-gradient(1px 1px at 85% 15%, #fff, transparent),
-    radial-gradient(1px 1px at 45% 45%, #fff, transparent);
-  background-size: 200px 200px;
-  opacity: 0.4;
-  animation: star-drift-far 3.4s ease-in forwards;
+    radial-gradient(0.5px 0.5px at 12% 22%, #fff, transparent),
+    radial-gradient(0.5px 0.5px at 34% 56%, #fff, transparent),
+    radial-gradient(0.5px 0.5px at 56% 12%, #fff, transparent),
+    radial-gradient(0.5px 0.5px at 78% 88%, #fff, transparent),
+    radial-gradient(0.5px 0.5px at 8% 78%, #fff, transparent),
+    radial-gradient(0.5px 0.5px at 92% 32%, #fff, transparent),
+    radial-gradient(0.5px 0.5px at 44% 92%, #fff, transparent),
+    radial-gradient(0.5px 0.5px at 62% 48%, #fff, transparent),
+    radial-gradient(0.5px 0.5px at 28% 68%, #fff, transparent),
+    radial-gradient(0.5px 0.5px at 82% 18%, #fff, transparent),
+    radial-gradient(0.5px 0.5px at 18% 42%, #fff, transparent),
+    radial-gradient(0.5px 0.5px at 72% 72%, #fff, transparent),
+    radial-gradient(0.5px 0.5px at 52% 28%, #fff, transparent),
+    radial-gradient(0.5px 0.5px at 38% 82%, #fff, transparent),
+    radial-gradient(0.5px 0.5px at 88% 58%, #fff, transparent),
+    radial-gradient(0.5px 0.5px at 6% 8%, #fff, transparent),
+    radial-gradient(0.5px 0.5px at 96% 96%, #fff, transparent),
+    radial-gradient(0.5px 0.5px at 48% 62%, #fff, transparent);
+  background-size: 150px 150px;
+  opacity: 0;
+  animation: stars-fade-in 1.2s ease-out 0.1s forwards,
+    twinkle-layer1 3s ease-in-out 1.3s infinite;
 }
 
-.intro-screen__stars--mid {
+.intro-screen__stars--layer2 {
   background-image:
-    radial-gradient(1.5px 1.5px at 25% 35%, #fff, transparent),
-    radial-gradient(1.5px 1.5px at 55% 75%, #fff, transparent),
-    radial-gradient(1.5px 1.5px at 75% 25%, #fff, transparent),
-    radial-gradient(1.5px 1.5px at 35% 65%, #fff, transparent),
-    radial-gradient(1.5px 1.5px at 65% 55%, #fff, transparent),
-    radial-gradient(1.5px 1.5px at 5% 15%, #fff, transparent),
-    radial-gradient(1.5px 1.5px at 95% 85%, #fff, transparent),
-    radial-gradient(1.5px 1.5px at 50% 40%, #fff, transparent);
-  background-size: 300px 300px;
-  opacity: 0.5;
-  animation: star-drift-mid 3.4s ease-in forwards;
+    radial-gradient(1px 1px at 22% 18%, #fff, transparent),
+    radial-gradient(1px 1px at 48% 72%, #fff, transparent),
+    radial-gradient(1px 1px at 72% 28%, #fff, transparent),
+    radial-gradient(1px 1px at 14% 62%, #fff, transparent),
+    radial-gradient(1px 1px at 86% 48%, #fff, transparent),
+    radial-gradient(1px 1px at 38% 38%, #fff, transparent),
+    radial-gradient(1px 1px at 64% 82%, #fff, transparent),
+    radial-gradient(1px 1px at 58% 8%, #fff, transparent),
+    radial-gradient(1px 1px at 92% 68%, #fff, transparent),
+    radial-gradient(1px 1px at 4% 48%, #fff, transparent),
+    radial-gradient(1px 1px at 42% 88%, #fff, transparent),
+    radial-gradient(1px 1px at 78% 12%, #fff, transparent);
+  background-size: 220px 220px;
+  opacity: 0;
+  animation: stars-fade-in 1.2s ease-out 0.3s forwards,
+    twinkle-layer2 2.5s ease-in-out 1.5s infinite;
 }
 
-.intro-screen__stars--near {
+.intro-screen__stars--layer3 {
   background-image:
-    radial-gradient(2px 2px at 30% 40%, #fff, transparent),
-    radial-gradient(2px 2px at 70% 60%, #fff, transparent),
-    radial-gradient(2px 2px at 50% 20%, #fff, transparent),
-    radial-gradient(2px 2px at 20% 80%, #fff, transparent),
-    radial-gradient(2px 2px at 80% 30%, #fff, transparent),
-    radial-gradient(2px 2px at 40% 50%, #fff, transparent),
-    radial-gradient(2px 2px at 60% 70%, #fff, transparent),
-    radial-gradient(2px 2px at 10% 90%, #fff, transparent);
-  background-size: 400px 400px;
-  opacity: 0.6;
-  animation: star-drift-near 3.4s ease-in forwards;
+    radial-gradient(1.5px 1.5px at 30% 50%, #cfe8ff, transparent),
+    radial-gradient(1.5px 1.5px at 68% 22%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 50% 78%, #ffe8cf, transparent),
+    radial-gradient(1.5px 1.5px at 20% 30%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 82% 68%, #cfe8ff, transparent),
+    radial-gradient(1.5px 1.5px at 42% 12%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 60% 58%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 12% 82%, #ffe8cf, transparent);
+  background-size: 320px 320px;
+  opacity: 0;
+  animation: stars-fade-in 1.2s ease-out 0.5s forwards,
+    twinkle-layer3 3.5s ease-in-out 1.7s infinite;
+}
+
+.intro-screen__stars--layer4 {
+  background-image:
+    radial-gradient(2.5px 2.5px at 35% 45%, #fff, transparent),
+    radial-gradient(2px 2px at 70% 65%, #cfe8ff, transparent),
+    radial-gradient(2.5px 2.5px at 25% 75%, #fff, transparent),
+    radial-gradient(2px 2px at 85% 25%, #ffe8cf, transparent),
+    radial-gradient(2.5px 2.5px at 55% 15%, #fff, transparent);
+  background-size: 500px 500px;
+  opacity: 0;
+  animation: stars-fade-in 1.2s ease-out 0.7s forwards,
+    twinkle-layer4 4s ease-in-out 2s infinite;
+}
+
+.intro-screen__warp {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.warp-star {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--warp-length);
+  height: var(--warp-thickness);
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 40%,
+    rgba(255, 255, 255, 0.95) 100%
+  );
+  box-shadow:
+    0 0 4px rgba(207, 232, 255, 0.6),
+    0 0 8px rgba(207, 232, 255, 0.3);
+  transform-origin: 0 50%;
+  opacity: 0;
+  animation: warp-streak var(--warp-duration) cubic-bezier(0.2, 0, 0.8, 1)
+    var(--warp-delay) forwards;
+  will-change: transform, opacity;
 }
 
 .intro-screen__dwarf {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 4px;
-  height: 4px;
+  width: 2px;
+  height: 2px;
   border-radius: 50%;
   background: #ffffff;
   box-shadow:
-    0 0 6px 2px rgba(255, 255, 255, 0.8),
-    0 0 12px 4px rgba(200, 240, 255, 0.4);
+    0 0 4px 1px rgba(255, 255, 255, 0.6),
+    0 0 8px 2px rgba(200, 240, 255, 0.3);
   transform: translate(-50%, -50%);
-  animation: dwarf-approach 3.4s cubic-bezier(0.08, 0, 0.24, 1) forwards;
+  opacity: 0;
+  animation: dwarf-approach 2.5s cubic-bezier(0.2, 0, 0.3, 1) 1.5s forwards;
+  will-change: width, height, box-shadow, opacity;
 }
 
 .intro-screen__flash {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, #fff 0%, #fff 30%, transparent 70%);
+  background: radial-gradient(
+    circle at center,
+    #fff 0%,
+    #fff 35%,
+    rgba(255, 255, 255, 0.5) 55%,
+    transparent 75%
+  );
   opacity: 0;
   pointer-events: none;
-  animation: intro-flash 800ms ease-out 2.8s forwards;
+  animation: intro-flash 800ms ease-out 3.6s forwards;
 }
 
-@keyframes space-dive {
-  0% {
-    transform: translateZ(0) scale(1);
-  }
-  100% {
-    transform: translateZ(300px) scale(1.5);
-  }
+.intro-screen__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    transparent 30%,
+    rgba(0, 0, 0, 0.6) 90%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
+  opacity: 0;
+  animation: vignette-close 2s ease-in 1.5s forwards;
+  pointer-events: none;
 }
 
-@keyframes star-drift-far {
-  0% {
-    transform: scale(1);
-    opacity: 0.4;
-  }
-  100% {
-    transform: scale(6);
+@keyframes stars-fade-in {
+  from {
     opacity: 0;
   }
+  to {
+    opacity: 1;
+  }
 }
 
-@keyframes star-drift-mid {
-  0% {
-    transform: scale(1);
+@keyframes twinkle-layer1 {
+  0%,
+  100% {
     opacity: 0.5;
   }
-  100% {
-    transform: scale(8);
-    opacity: 0;
+  50% {
+    opacity: 0.8;
   }
 }
 
-@keyframes star-drift-near {
+@keyframes twinkle-layer2 {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  33% {
+    opacity: 0.4;
+  }
+  66% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes twinkle-layer3 {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes twinkle-layer4 {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  40% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes nebula-appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes nebula-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(2%, -1%) scale(1.05);
+  }
+}
+
+@keyframes sky-warp {
   0% {
     transform: scale(1);
+    filter: blur(0);
+    opacity: 1;
+  }
+  30% {
+    transform: scale(1.3);
+    filter: blur(1px);
+    opacity: 0.9;
+  }
+  60% {
+    transform: scale(2);
+    filter: blur(3px);
     opacity: 0.6;
   }
   100% {
-    transform: scale(10);
+    transform: scale(4);
+    filter: blur(12px);
+    opacity: 0;
+  }
+}
+
+@keyframes warp-streak {
+  0% {
+    transform: rotate(var(--warp-angle)) translateX(0) scaleX(0.1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(var(--warp-angle)) translateX(var(--warp-distance))
+      scaleX(1.8);
     opacity: 0;
   }
 }
 
 @keyframes dwarf-approach {
   0% {
-    width: 4px;
-    height: 4px;
+    width: 2px;
+    height: 2px;
+    opacity: 0;
     box-shadow:
-      0 0 6px 2px rgba(255, 255, 255, 0.8),
-      0 0 12px 4px rgba(200, 240, 255, 0.4);
+      0 0 4px 1px rgba(255, 255, 255, 0.6),
+      0 0 8px 2px rgba(200, 240, 255, 0.3);
   }
-  60% {
-    width: 20px;
-    height: 20px;
-    box-shadow:
-      0 0 20px 8px rgba(255, 255, 255, 0.9),
-      0 0 40px 16px rgba(200, 240, 255, 0.5);
+  10% {
+    opacity: 1;
   }
-  85% {
-    width: 120px;
-    height: 120px;
+  50% {
+    width: 16px;
+    height: 16px;
     box-shadow:
-      0 0 60px 30px rgba(255, 255, 255, 1),
-      0 0 120px 60px rgba(200, 240, 255, 0.6);
+      0 0 16px 6px rgba(255, 255, 255, 0.9),
+      0 0 32px 12px rgba(200, 240, 255, 0.5);
+  }
+  75% {
+    width: 80px;
+    height: 80px;
+    box-shadow:
+      0 0 50px 25px rgba(255, 255, 255, 1),
+      0 0 100px 50px rgba(200, 240, 255, 0.7);
+  }
+  92% {
+    width: 250px;
+    height: 250px;
+    box-shadow:
+      0 0 120px 60px rgba(255, 255, 255, 1),
+      0 0 240px 120px rgba(200, 240, 255, 0.8);
   }
   100% {
-    width: 400px;
-    height: 400px;
+    width: 500px;
+    height: 500px;
     box-shadow:
-      0 0 200px 100px rgba(255, 255, 255, 1),
-      0 0 400px 200px rgba(255, 255, 255, 0.8);
+      0 0 250px 120px rgba(255, 255, 255, 1),
+      0 0 500px 250px rgba(255, 255, 255, 0.9);
+  }
+}
+
+@keyframes vignette-close {
+  0% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
@@ -590,7 +774,7 @@ button {
   0% {
     opacity: 0;
   }
-  40% {
+  30% {
     opacity: 1;
   }
   100% {
@@ -618,7 +802,7 @@ button {
   color: rgb(238 243 255 / 92%);
   text-align: right;
   pointer-events: none;
-  animation: stats-panel-reveal 700ms cubic-bezier(0.22, 1, 0.36, 1) 4.2s both;
+  animation: stats-panel-reveal 700ms cubic-bezier(0.22, 1, 0.36, 1) 4.6s both;
 }
 
 .info-panel__text {
@@ -681,7 +865,7 @@ button {
   -webkit-backdrop-filter: blur(14px);
   padding: 4px 0;
   pointer-events: none;
-  animation: stats-panel-reveal 700ms cubic-bezier(0.22, 1, 0.36, 1) 4.2s both;
+  animation: stats-panel-reveal 700ms cubic-bezier(0.22, 1, 0.36, 1) 4.6s both;
 }
 
 .stats-panel__row {
@@ -813,18 +997,6 @@ button {
 
   to {
     opacity: 1;
-  }
-}
-
-@keyframes intro-exit {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  to {
-    opacity: 0;
-    transform: scale(1.1);
   }
 }
 
@@ -1024,13 +1196,18 @@ button {
   }
 
   .intro-screen,
-  .intro-screen__space,
+  .intro-screen__nebula,
+  .intro-screen__sky,
   .intro-screen__stars,
-  .intro-screen__stars--far,
-  .intro-screen__stars--mid,
-  .intro-screen__stars--near,
+  .intro-screen__stars--layer1,
+  .intro-screen__stars--layer2,
+  .intro-screen__stars--layer3,
+  .intro-screen__stars--layer4,
+  .intro-screen__warp,
+  .warp-star,
   .intro-screen__dwarf,
   .intro-screen__flash,
+  .intro-screen__vignette,
   .shooting-star,
   .shooting-star__wake,
   .shooting-star__trail,
