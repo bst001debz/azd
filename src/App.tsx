@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import cosmicAvatar from "./imports/cosmic-avatar.png";
+import introLogo from "./imports/intro-logo.png";
 
 type Trade = {
   id: number;
@@ -57,7 +58,7 @@ function generateWarpStars(count: number): WarpStar[] {
     id: i,
     angle: Math.random() * 360,
     distance: 300 + Math.random() * 500,
-    delay: 1700 + Math.random() * 1700,
+    delay: 2700 + Math.random() * 1700,
     duration: 500 + Math.random() * 600,
     length: 60 + Math.random() * 220,
     thickness: 1 + Math.random() * 2,
@@ -159,7 +160,7 @@ export default function App() {
   const nextTradeId = useRef(INITIAL_TRADES.length);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setShowIntro(false), 4800);
+    const timer = window.setTimeout(() => setShowIntro(false), 5200);
     return () => window.clearTimeout(timer);
   }, []);
 
@@ -280,6 +281,9 @@ export default function App() {
 
       {showIntro && (
         <div className="intro-screen" role="status" aria-label="Loading">
+          <div className="intro-screen__logo">
+            <img src={introLogo} alt="White Dwarf Agent" />
+          </div>
           <div className="intro-screen__nebula" />
           <div className="intro-screen__sky">
             <div className="intro-screen__stars intro-screen__stars--layer1" />
