@@ -54,15 +54,18 @@ type WarpStar = {
 };
 
 function generateWarpStars(count: number): WarpStar[] {
-  return Array.from({ length: count }, (_, i) => ({
-    id: i,
-    angle: Math.random() * 360,
-    distance: 300 + Math.random() * 500,
-    delay: 2700 + Math.random() * 1700,
-    duration: 500 + Math.random() * 600,
-    length: 60 + Math.random() * 220,
-    thickness: 1 + Math.random() * 2,
-  }));
+  return Array.from({ length: count }, (_, i) => {
+    const ring = Math.floor(i / 30);
+    return {
+      id: i,
+      angle: (i * 137.5 + Math.random() * 20) % 360,
+      distance: 400 + Math.random() * 600 + ring * 200,
+      delay: 1600 + ring * 200 + Math.random() * 600,
+      duration: 700 + Math.random() * 500,
+      length: 80 + Math.random() * 280,
+      thickness: 0.8 + Math.random() * 2.2,
+    };
+  });
 }
 
 function createShootingStar(id: number, side: Trade["side"]): ShootingStar {
@@ -160,7 +163,7 @@ export default function App() {
   const nextTradeId = useRef(INITIAL_TRADES.length);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setShowIntro(false), 5200);
+    const timer = window.setTimeout(() => setShowIntro(false), 5500);
     return () => window.clearTimeout(timer);
   }, []);
 
